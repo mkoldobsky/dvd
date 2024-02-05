@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <canvas
+      id="dvdCanvas"
+      width="640"
+      height="480"
+      style="border: 1px solid grey"
+    ></canvas>
+    <script>
+      const canvas = document.getElementById("dvdCanvas");
+      const ctx = canvas.getContext("2d");
+      let x = 10;
+      let y = 10;
+      let xMultiplier = 1;
+      let yMultiplier = 1;
+      const colors = ["red", "blue", "green", "yellow"];
+      let color = colors[Math.floor(Math.random() * 3)];
+
+      ctx.fillStyle = color;
+      ctx.font = "30px Arial";
+      function drawText() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillText("dvd", x, y);
+        x += 1 * xMultiplier;
+        y += 1 * yMultiplier;
+        detectCollision();
+      }
+      function detectCollision() {
+        if (x === 640) {
+          xMultiplier = -1;
+          changeColor();
+        }
+        if (y === 480) {
+          yMultiplier = -1;
+          changeColor();
+        }
+        if (x === 0) {
+          xMultiplier = 1;
+          changeColor();
+        }
+        if (y === 0) {
+          yMultiplier = 1;
+          changeColor();
+        }
+      }
+      function changeColor() {
+        color = colors[Math.floor(Math.random() * 3)];
+
+        ctx.fillStyle = color;
+      }
+
+      setInterval(drawText, 20);
+    </script>
+  </body>
+</html>
